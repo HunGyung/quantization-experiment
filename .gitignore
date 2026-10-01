@@ -1,0 +1,13 @@
+# Local research plan
+/research-milestones.md
+
+# Python environment and cache
+/.venv/
+__pycache__/
+*.py[cod]
+
+# Downloaded data and generated splits
+/data/
+
+# Local editor settings
+/.vscode/
