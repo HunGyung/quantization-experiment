@@ -53,8 +53,6 @@ def calculate_mean_std(raw_train, train_indices):
     pixels = raw_train.data[train_indices]
     mean = pixels.mean(axis=(0, 1, 2), dtype=np.float64) / 255.0
     std = pixels.std(axis=(0, 1, 2), dtype=np.float64) / 255.0
-    print("mean:", mean)
-    print("std:", std)
     return mean.tolist(), std.tolist()
 
 
@@ -90,7 +88,9 @@ def make_datasets():
     return train_data, val_data, cal_data, test_data
 
 
-def make_data_loader(train_data, val_data, cal_data, test_data):
+def make_data_loader():
+    train_data, val_data, cal_data, test_data = make_datasets()
+
     train_loader = DataLoader(train_data, batch_size=64, shuffle=True, num_workers=0)
     val_loader = DataLoader(val_data, batch_size=64, shuffle=False, num_workers=0)
     cal_loader = DataLoader(cal_data, batch_size=64, shuffle=False, num_workers=0)
@@ -99,17 +99,15 @@ def make_data_loader(train_data, val_data, cal_data, test_data):
     return train_loader, val_loader, cal_loader, test_loader
 
 def main():
-    train_data, val_data, cal_data, test_data = make_datasets()
-    print("train size:", len(train_data))
-    print("validation size:", len(val_data))
-    print("calibration size:", len(cal_data))
-    print("test size:", len(test_data))
-    image, label = train_data[0]
-    print("sample image shape:", tuple(image.shape), "label:", label)
+    # train_data, val_data, cal_data, test_data = make_datasets()
+    # print("train size:", len(train_data))
+    # print("validation size:", len(val_data))
+    # print("calibration size:", len(cal_data))
+    # print("test size:", len(test_data))
+    # image, label = train_data[0]
+    # print("sample image shape:", tuple(image.shape), "label:", label)
 
-    train_loader, val_loader, cal_loader, test_loader = make_data_loader(
-    train_data, val_data, cal_data, test_data
-    )
+    train_loader, val_loader, cal_loader, test_loader = make_data_loader()
 
     images, labels = next(iter(train_loader))
     print(images.shape, labels.shape)
