@@ -91,10 +91,10 @@ def make_datasets():
 def make_data_loader():
     train_data, val_data, cal_data, test_data = make_datasets()
 
-    train_loader = DataLoader(train_data, batch_size=64, shuffle=True, num_workers=0)
-    val_loader = DataLoader(val_data, batch_size=64, shuffle=False, num_workers=0)
-    cal_loader = DataLoader(cal_data, batch_size=64, shuffle=False, num_workers=0)
-    test_loader = DataLoader(test_data, batch_size=64, shuffle=False, num_workers=0)
+    train_loader = DataLoader(train_data, batch_size=256, shuffle=True, num_workers=0)
+    val_loader = DataLoader(val_data, batch_size=256, shuffle=False, num_workers=0)
+    cal_loader = DataLoader(cal_data, batch_size=256, shuffle=False, num_workers=0)
+    test_loader = DataLoader(test_data, batch_size=256, shuffle=False, num_workers=0)
 
     return train_loader, val_loader, cal_loader, test_loader
 

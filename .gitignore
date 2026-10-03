@@ -9,6 +9,7 @@ __pycache__/
 # Downloaded data and generated splits
 /data/
 /checkpoints/
+/results/generated/
 
 # Local editor settings
 /.vscode/

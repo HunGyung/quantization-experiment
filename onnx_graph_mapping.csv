@@ -1,0 +1,30 @@
+﻿group,op_type,node_name,weight_initializer,initializer_inputs,main_path_weight_for_add,inputs,outputs,onnx_sha256
+Initial Conv,Conv,node_Conv_292,conv1.weight,conv1.weight;conv1.weight_bias,,images;conv1.weight;conv1.weight_bias,getitem,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 1,Conv,node_Conv_294,layer1.0.conv1.weight,layer1.0.conv1.weight;layer1.0.conv1.weight_bias,,relu;layer1.0.conv1.weight;layer1.0.conv1.weight_bias,getitem_3,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 1,Conv,node_Conv_296,layer1.0.conv2.weight,layer1.0.conv2.weight;layer1.0.conv2.weight_bias,,relu_1;layer1.0.conv2.weight;layer1.0.conv2.weight_bias,getitem_6,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 1,Add,node_add_60,,,layer1.0.conv2.weight,getitem_6;relu,add_60,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 1,Conv,node_Conv_298,layer1.1.conv1.weight,layer1.1.conv1.weight;layer1.1.conv1.weight_bias,,relu_2;layer1.1.conv1.weight;layer1.1.conv1.weight_bias,getitem_9,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 1,Conv,node_Conv_300,layer1.1.conv2.weight,layer1.1.conv2.weight;layer1.1.conv2.weight_bias,,relu_3;layer1.1.conv2.weight;layer1.1.conv2.weight_bias,getitem_12,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 1,Add,node_add_116,,,layer1.1.conv2.weight,getitem_12;relu_2,add_116,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 2,Conv,node_Conv_302,layer2.0.conv1.weight,layer2.0.conv1.weight;layer2.0.conv1.weight_bias,,relu_4;layer2.0.conv1.weight;layer2.0.conv1.weight_bias,getitem_15,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 2,Conv,node_Conv_304,layer2.0.conv2.weight,layer2.0.conv2.weight;layer2.0.conv2.weight_bias,,relu_5;layer2.0.conv2.weight;layer2.0.conv2.weight_bias,getitem_18,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 2,Conv,node_Conv_306,layer2.0.downsample.0.weight,layer2.0.downsample.0.weight;layer2.0.downsample.0.weight_bias,,relu_4;layer2.0.downsample.0.weight;layer2.0.downsample.0.weight_bias,getitem_21,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 2,Add,node_add_182,,,layer2.0.conv2.weight,getitem_18;getitem_21,add_182,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 2,Conv,node_Conv_308,layer2.1.conv1.weight,layer2.1.conv1.weight;layer2.1.conv1.weight_bias,,relu_6;layer2.1.conv1.weight;layer2.1.conv1.weight_bias,getitem_24,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 2,Conv,node_Conv_310,layer2.1.conv2.weight,layer2.1.conv2.weight;layer2.1.conv2.weight_bias,,relu_7;layer2.1.conv2.weight;layer2.1.conv2.weight_bias,getitem_27,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 2,Add,node_add_238,,,layer2.1.conv2.weight,getitem_27;relu_6,add_238,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 3,Conv,node_Conv_312,layer3.0.conv1.weight,layer3.0.conv1.weight;layer3.0.conv1.weight_bias,,relu_8;layer3.0.conv1.weight;layer3.0.conv1.weight_bias,getitem_30,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 3,Conv,node_Conv_314,layer3.0.conv2.weight,layer3.0.conv2.weight;layer3.0.conv2.weight_bias,,relu_9;layer3.0.conv2.weight;layer3.0.conv2.weight_bias,getitem_33,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 3,Conv,node_Conv_316,layer3.0.downsample.0.weight,layer3.0.downsample.0.weight;layer3.0.downsample.0.weight_bias,,relu_8;layer3.0.downsample.0.weight;layer3.0.downsample.0.weight_bias,getitem_36,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 3,Add,node_add_304,,,layer3.0.conv2.weight,getitem_33;getitem_36,add_304,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 3,Conv,node_Conv_318,layer3.1.conv1.weight,layer3.1.conv1.weight;layer3.1.conv1.weight_bias,,relu_10;layer3.1.conv1.weight;layer3.1.conv1.weight_bias,getitem_39,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 3,Conv,node_Conv_320,layer3.1.conv2.weight,layer3.1.conv2.weight;layer3.1.conv2.weight_bias,,relu_11;layer3.1.conv2.weight;layer3.1.conv2.weight_bias,getitem_42,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 3,Add,node_add_360,,,layer3.1.conv2.weight,getitem_42;relu_10,add_360,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 4,Conv,node_Conv_322,layer4.0.conv1.weight,layer4.0.conv1.weight;layer4.0.conv1.weight_bias,,relu_12;layer4.0.conv1.weight;layer4.0.conv1.weight_bias,getitem_45,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 4,Conv,node_Conv_324,layer4.0.conv2.weight,layer4.0.conv2.weight;layer4.0.conv2.weight_bias,,relu_13;layer4.0.conv2.weight;layer4.0.conv2.weight_bias,getitem_48,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 4,Conv,node_Conv_326,layer4.0.downsample.0.weight,layer4.0.downsample.0.weight;layer4.0.downsample.0.weight_bias,,relu_12;layer4.0.downsample.0.weight;layer4.0.downsample.0.weight_bias,getitem_51,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 4,Add,node_add_426,,,layer4.0.conv2.weight,getitem_48;getitem_51,add_426,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 4,Conv,node_Conv_328,layer4.1.conv1.weight,layer4.1.conv1.weight;layer4.1.conv1.weight_bias,,relu_14;layer4.1.conv1.weight;layer4.1.conv1.weight_bias,getitem_54,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 4,Conv,node_Conv_330,layer4.1.conv2.weight,layer4.1.conv2.weight;layer4.1.conv2.weight_bias,,relu_15;layer4.1.conv2.weight;layer4.1.conv2.weight_bias,getitem_57,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+Layer 4,Add,node_add_482,,,layer4.1.conv2.weight,getitem_57;relu_14,add_482,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45
+FC,Gemm,node_linear,fc.weight,fc.weight;fc.bias,,view;fc.weight;fc.bias,logits,57899ba9edd1a8297fd2e963836db34380166f38d0a1c48978adbe02692e3c45

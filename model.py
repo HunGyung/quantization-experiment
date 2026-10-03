@@ -95,6 +95,14 @@ def train_model(model):
         )
 
 
+def load_model():
+    model = make_model()
+    checkpt = torch.load(checkpoint_path, map_location="cpu", weights_only=True)
+    model.load_state_dict(checkpt["model_state_dict"])
+
+    return model
+
+
 def main():
     torch.manual_seed(TRAIN_SEED)
     print(f"학습 seed: {TRAIN_SEED}", flush=True)
