@@ -206,15 +206,9 @@ def evaluate_between_torch_and_onnx(val_loader):
     print(f"logits allclose (atol={atol}, rtol={rtol}): {logits_allclose}")
 
 
-def evaluate_onnx(model_path, val_loader, result_path=None, baseline_result_path=None):
-    model_path = Path(model_path).resolve(strict=True)
-    model = model_files(model_path)
-    print(f"파일 크기 (외부 데이터 포함): {model['total_size_bytes']} bytes")
-
-    session = load_onnx(model_path)
+def evaluate_validation(session, val_loader):
+    """Measure ONNX loss and top-1 accuracy on the validation loader."""
     input_name = session.get_inputs()[0].name
-
-    # Accuracy는 validation 전체에서 측정한다.
     criterion = nn.CrossEntropyLoss()
     onnx_loss_sum = 0.0
     onnx_correct = 0
@@ -229,11 +223,25 @@ def evaluate_onnx(model_path, val_loader, result_path=None, baseline_result_path
         total += batch_size
     if total == 0:
         raise ValueError("Validation loader가 비어 있습니다.")
-    validation = {
-        "split": "validation",
+    return {
         "sample_count": total,
         "loss": onnx_loss_sum / total,
         "accuracy_percent": 100 * onnx_correct / total,
+    }
+
+
+def evaluate_onnx(model_path, val_loader, result_path=None, baseline_result_path=None):
+    model_path = Path(model_path).resolve(strict=True)
+    model = model_files(model_path)
+    print(f"파일 크기 (외부 데이터 포함): {model['total_size_bytes']} bytes")
+
+    session = load_onnx(model_path)
+    input_name = session.get_inputs()[0].name
+
+    # Accuracy는 validation 전체에서 측정한다.
+    validation = {
+        "split": "validation",
+        **evaluate_validation(session, val_loader),
         "accuracy_drop_percentage_points": None,
         "baseline_accuracy_percent": None,
         "baseline_result_path": None,

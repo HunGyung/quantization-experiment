@@ -15,18 +15,27 @@ M3 검증 수치와 모델 해시는 [m3_export_verification.md](m3_export_verif
 
 ## M4 FP32 기준 측정
 
-최종 비교에 사용할 데스크탑에서 실행한다.
+최종 비교에 사용할 장비를 하나 정해 FP32와 모든 INT8 모델을 같은 CPU·런타임 설정에서 실행한다.
 
 ```powershell
-.\.venv\Scripts\python.exe evaluation.py checkpoints\onnx_resnet18.onnx --output results\fp32_desktop.json
+.\.venv\Scripts\python.exe evaluation.py checkpoints\onnx_resnet18.onnx --output results\fp32_reference.json
 ```
 
 평가 도구는 validation 정확도, ONNX 및 external data 파일 크기, batch 1 latency, batch 32 throughput, 별도 프로세스의 최대 RAM을 JSON으로 저장한다. 두 시간 지표는 각각 100회 warm-up 뒤 1,000회 측정하며 원시 시간도 저장한다. CPUExecutionProvider, intra-op 6 threads, inter-op 1 thread, `ORT_ENABLE_ALL` 최적화를 모든 모델에 적용한다. 시간 측정에는 준비된 입력의 `session.run` 호출만 포함한다. 메모리 값에는 Python·ONNX Runtime·모델 초기화와 추론을 포함한 작업 프로세스 전체가 들어간다.
 
-이후 INT8 모델은 같은 데스크탑에서 측정하고 FP32 결과 파일을 참조한다.
+이후 INT8 모델은 같은 장비에서 측정하고 FP32 결과 파일을 참조한다.
 
 ```powershell
-.\.venv\Scripts\python.exe evaluation.py checkpoints\full_int8.onnx --baseline-result results\fp32_desktop.json --output results\full_int8_desktop.json
+.\.venv\Scripts\python.exe evaluation.py checkpoints\full_int8.onnx --baseline-result results\fp32_reference.json --output results\full_int8_reference.json
 ```
 
 인자 없이 `evaluation.py`를 실행하면 FP32 ONNX를 측정하고 `results/generated/`에 시간표시가 붙은 로컬 결과를 저장한다. 이 폴더는 Git에서 제외한다.
+
+## M5 Full INT8 생성과 중간 확인
+
+```powershell
+.\.venv\Scripts\python.exe quantize_full_int8.py
+.\.venv\Scripts\python.exe inspect_full_int8.py
+```
+
+첫 명령은 고정 calibration 1,000장으로 QDQ·MinMax Static PTQ를 적용해 `checkpoints/full_int8.onnx`를 만든다. 두 번째 명령은 M3 매핑의 Conv·Gemm·Add에 대한 Q/DQ·가중치 범위를 확인하고 같은 validation 5,000장에서 FP32와 Full INT8 정확도를 비교한다. 이 정확도 확인은 최종 CPU 성능 측정과 구분한다.
