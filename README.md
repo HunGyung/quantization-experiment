@@ -49,3 +49,14 @@ M3 검증 수치와 모델 해시는 [m3_export_verification.md](m3_export_verif
 FP32 ONNX와 Full INT8 ONNX의 대응하는 Conv·Gemm weight 21개를 비교한다. INT8 모델에 저장된 scale·zero-point·axis로 weight를 복원하고, weight별 MSE·NMSE와 여섯 그룹별 NMSE를 계산한다. 그룹 NMSE는 각 weight의 제곱 오차 합을 더한 뒤 FP32 weight 제곱 합으로 나눈 값이다. Add에는 weight가 없고 INT32 bias는 분석에서 제외한다.
 
 결과는 `results/generated/m6/`의 CSV, 그래프 PNG, 모델 해시와 계산식을 담은 `metadata.json`에 저장된다. 이 폴더는 Git에서 제외한다. 이 weight 오차는 M7에서 측정할 validation 정확도 민감도와 별개의 지표다.
+
+## M7 그룹별 정확도 민감도
+
+```powershell
+.\.venv\Scripts\python.exe quantize_group_int8.py
+.\.venv\Scripts\python.exe evaluate_group_sensitivity.py
+```
+
+첫 명령은 M3 매핑의 여섯 그룹을 각각 단독으로 양자화한 ONNX 모델을 `checkpoints/`에 생성한다. 여섯 번 모두 동일한 FP32 ONNX, 고정 calibration 1,000장, M5와 같은 QDQ·MinMax·QInt8 설정을 사용한다. 각 모델에서 대상 Conv·Gemm·Add의 Q/DQ 및 비대상 Conv·Gemm의 FP32 weight를 검사하고, 입력 모델·데이터 split·설정·출력 모델 해시를 manifest에 기록한다.
+
+두 번째 명령은 manifest와 그래프를 재검증한 뒤 동일한 validation 5,000장에서 FP32와 그룹별 모델의 정확도를 측정한다. `Sensitivity = FP32 정확도 − 해당 그룹만 양자화한 정확도`이며 단위는 %p이고, 음수도 그대로 기록한다. 정확도 하락이 같으면 공동 순위로 표시한다. `results/generated/m7/`에 순위표 CSV·JSON, 양자화 범위 검증 기록과 그래프를 저장한다. 그룹 경계 Q/DQ의 영향이 정확도에 포함되므로 M6의 weight NMSE 순위와 구분해서 해석한다. Test 데이터는 이 단계에서 평가하지 않는다.
