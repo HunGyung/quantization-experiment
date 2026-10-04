@@ -39,3 +39,13 @@ M3 검증 수치와 모델 해시는 [m3_export_verification.md](m3_export_verif
 ```
 
 첫 명령은 고정 calibration 1,000장으로 QDQ·MinMax Static PTQ를 적용해 `checkpoints/full_int8.onnx`를 만든다. 두 번째 명령은 M3 매핑의 Conv·Gemm·Add에 대한 Q/DQ·가중치 범위를 확인하고 같은 validation 5,000장에서 FP32와 Full INT8 정확도를 비교한다. 이 정확도 확인은 최종 CPU 성능 측정과 구분한다.
+
+## M6 Weight 양자화 오차 분석
+
+```powershell
+.\.venv\Scripts\python.exe analyze_weight_error.py
+```
+
+FP32 ONNX와 Full INT8 ONNX의 대응하는 Conv·Gemm weight 21개를 비교한다. INT8 모델에 저장된 scale·zero-point·axis로 weight를 복원하고, weight별 MSE·NMSE와 여섯 그룹별 NMSE를 계산한다. 그룹 NMSE는 각 weight의 제곱 오차 합을 더한 뒤 FP32 weight 제곱 합으로 나눈 값이다. Add에는 weight가 없고 INT32 bias는 분석에서 제외한다.
+
+결과는 `results/generated/m6/`의 CSV, 그래프 PNG, 모델 해시와 계산식을 담은 `metadata.json`에 저장된다. 이 폴더는 Git에서 제외한다. 이 weight 오차는 M7에서 측정할 validation 정확도 민감도와 별개의 지표다.
