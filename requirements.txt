@@ -1,0 +1,12 @@
+# Validated on Windows with Python 3.14.4.
+# Install the CPU or CUDA PyTorch wheels first; see README.md.
+torch==2.13.0
+torchvision==0.28.0
+numpy==2.5.2
+Pillow==12.3.0
+onnx==1.23.1
+onnxruntime==1.30.0
+onnxscript==0.7.2
+matplotlib==3.11.2
+psutil==7.2.2
+protobuf==7.36.2
