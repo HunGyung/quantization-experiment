@@ -95,3 +95,13 @@ M7에서 Layer 1과 Layer 3이 공동 최고 민감도였으므로, Layer 1만 F
 ```powershell
 .\.venv\Scripts\python.exe evaluate_selective_int8.py --freeze
 ```
+
+## M9 최종 Test 정확도
+
+M8 benchmark와 동결을 마친 뒤, 같은 데스크탑에서 아래 명령을 **한 번** 실행한다. 실행 전 동결 설정, M8 비교 기록, 데이터 split, 세 ONNX 모델의 해시를 확인한다. Test 10,000장에서 FP32·Full INT8·동결된 Selective INT8의 Top-1 정확도를 측정하고 `results/generated/m9/test_comparison.json`과 `.csv`를 저장한다.
+
+```powershell
+.\.venv\Scripts\python.exe evaluate_test.py
+```
+
+CSV의 latency·throughput·RAM은 test 이미지로 다시 측정한 값이 아니라 같은 데스크탑의 M8 benchmark에서 가져온 값이다. Test 결과를 보고 Selective 후보를 다시 고르지 않는다. 최종 결과 문서에는 M6·M7 분석과 이 비교표, 실행 환경과 원시 기록을 함께 정리한다.
